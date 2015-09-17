@@ -322,9 +322,9 @@ function build_kernel()
             echo "nand kernel config: ${kernel_config}"
         fi
 
-        #make distclean
-        #cp arch/arm/configs/${kernel_config} .config
-        #yes "" | make ARCH=arm oldconfig
+        make distclean
+        cp arch/arm/configs/${kernel_config} .config
+        yes "" | make ARCH=arm oldconfig
         make ARCH=arm uImage -j8
 
         if [ ${ROOT_DEVICE_TYPE} == "nand" ]; then
