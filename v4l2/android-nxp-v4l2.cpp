@@ -19,8 +19,8 @@ bool android_nxp_v4l2_init()
         s.useMlc0Video  = true;
         s.useMlc1Video  = true;
         s.useMlc1Rgb    = true;
-        s.useResol      = false;
-        s.useHdmi       = false;
+        s.useResol      = true;
+        s.useHdmi       = true;
 
         int ret = v4l2_init(&s);
         if (ret != 0)
