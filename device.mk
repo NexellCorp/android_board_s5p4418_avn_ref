@@ -154,11 +154,11 @@ endif
 ################################################################################
 # wifi
 ################################################################################
-PRODUCT_COPY_FILES += \
+#PRODUCT_COPY_FILES += \
 	device/nexell/s5p4418_avn_ref/bcmdhd.cal:/system/etc/wifi/bcmdhd.cal \
 	device/nexell/s5p4418_avn_ref/wl:/system/bin/wl
 
-#PRODUCT_COPY_FILES += \
+PRODUCT_COPY_FILES += \
     hardware/samsung_slsi/slsiap/prebuilt/modules/wlan.ko:/system/lib/modules/wlan.ko
 
 ################################################################################
