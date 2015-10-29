@@ -136,6 +136,12 @@ PRODUCT_COPY_FILES += \
 #PRODUCT_COPY_FILES += \
 	hardware/samsung_slsi/slsiap/prebuilt/modules/nx_vpu.ko:system/lib/modules/nx_vpu.ko
 
+################################################################################
+# AVN application 
+################################################################################
+PRODUCT_COPY_FILES += \
+	hardware/samsung_slsi/slsiap/prebuilt/avn_monitor/nx_avn_monitor:system/bin/nx_avn_monitor
+
 # ffmpeg libraries
 EN_FFMPEG_EXTRACTOR := false
 EN_FFMPEG_AUDIO_DEC := false
