@@ -7,20 +7,14 @@ PRODUCT_COPY_FILES += \
 ################################################################################
 # bootloader
 ################################################################################
-#PRODUCT_COPY_FILES += \
+PRODUCT_COPY_FILES += \
 	u-boot/u-boot.bin:bootloader
 
 ################################################################################
 # 2ndboot
 ################################################################################
-#PRODUCT_COPY_FILES += \
+PRODUCT_COPY_FILES += \
 	device/nexell/s5p4418_avn_ref/boot/2ndboot.bin:2ndbootloader
-
-################################################################################
-# overlay apps
-################################################################################
-#PRODUCT_COPY_FILES += \
-	#hardware/samsung_slsi/slsiap/overlay-apps/GooglePinyinIME.apk:system/app/PinyinIME.apk
 
 ################################################################################
 # init
@@ -36,10 +30,12 @@ PRODUCT_COPY_FILES += \
 	device/nexell/s5p4418_avn_ref/mon_snd.sh:root/mon_snd.sh
 
 ################################################################################
-# bootanimation
+# recovery
 ################################################################################
-#PRODUCT_COPY_FILES += \
-	device/nexell/s5p4418_avn_ref/bootanimation480x80.zip:system/media/bootanimation.zip
+PRODUCT_COPY_FILES += \
+    device/nexell/s5p4418_avn_ref/busybox:busybox \
+    device/nexell/s5p4418_avn_ref/wipe_data.sh:wipe_data.sh \
+    device/nexell/s5p4418_avn_ref/wipe_cache.sh:wipe_cache.sh
 
 ################################################################################
 # key
@@ -370,6 +366,7 @@ $(call inherit-product-if-exists, hardware/samsung_slsi/slsiap/slsiap.mk)
 
 # Nexell Application
 $(call inherit-product-if-exists, vendor/nexell/apps/nxapps.mk)
+$(call inherit-product-if-exists, vendor/nexell/apps/smartsync.mk)
 
 # google gms
 #$(call inherit-product-if-exists, vendor/google/gapps/gapps.mk)

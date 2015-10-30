@@ -22,17 +22,15 @@ TARGET_NO_RADIOIMAGE := false
 # recovery
 TARGET_RECOVERY_FSTAB := device/nexell/s5p4418_avn_ref/recovery.fstab
 
-#TARGET_RELEASETOOLS_EXTENSIONS := device/nexell/s5p4418_avn_ref
-#TARGET_RECOVERY_UPDATER_LIBS += librecovery_updater_s5p4418_avn_ref
-#TARGET_RECOVERY_UI_LIB := librecovery_ui_s5p4418_avn_ref
-# TARGET_RECOVERY_PIXEL_FORMAT not specified ==> rgb565
+TARGET_RELEASETOOLS_EXTENSIONS := device/nexell/s5p4418_avn_ref
+TARGET_RECOVERY_UPDATER_LIBS += librecovery_updater_s5p4418_avn_ref
 
 # 2ndbootloader, bootloader
-#$(call add-radio-file,2ndbootloader)
-#$(call add-radio-file,bootloader)
-#INSTALLED_RADIOIMAGE_TARGET += 2ndbootloader
-#INSTALLED_RADIOIMAGE_TARGET += bootloader
-#$(warning INSTALLED_RADIOIMAGE_TARGET: $(INSTALLED_RADIOIMAGE_TARGET))
+$(call add-radio-file,2ndbootloader)
+$(call add-radio-file,bootloader)
+INSTALLED_RADIOIMAGE_TARGET += 2ndbootloader
+INSTALLED_RADIOIMAGE_TARGET += bootloader
+$(warning INSTALLED_RADIOIMAGE_TARGET: $(INSTALLED_RADIOIMAGE_TARGET))
 
 # certificate
 #PRODUCT_DEFAULT_DEV_CERTIFICATE := vendor/nexell/security/s5p4418_avn_ref/release
@@ -156,7 +154,7 @@ WITH_DEXPREOPT := true
 TARGET_USERIMAGES_USE_EXT4       := true
 BOARD_CACHEIMAGE_FILE_SYSTEM_TYPE := ext4
 BOARD_BOOTIMAGE_PARTITION_SIZE := 67108864
-BOARD_SYSTEMIMAGE_PARTITION_SIZE := 685768704
-BOARD_CACHEIMAGE_PARTITION_SIZE  := 553648128
+BOARD_SYSTEMIMAGE_PARTITION_SIZE := 790626304 
+BOARD_CACHEIMAGE_PARTITION_SIZE  := 448790528
 BOARD_USERDATAIMAGE_PARTITION_SIZE := 7215251456
 BOARD_FLASH_BLOCK_SIZE           := 4096
