@@ -54,7 +54,7 @@ EN_DUAL_AUDIO := true
 BOARD_HAVE_BLUETOOTH := false
 
 # camera
-BOARD_HAS_CAMERA := false
+BOARD_HAS_CAMERA := true
 
 # sensor
 BOARD_HAS_SENSOR := false
