@@ -63,6 +63,11 @@ BOARD_SENSOR_TYPE := general
 EN_FFMPEG_EXTRACTOR := false
 EN_FFMPEG_AUDIO_DEC := false
 
+
+# iOS iAP/Tethering
+BOARD_USES_IOS_IAP_TETHERING := true
+
+
 # wifi
 # broadcom bcm4329
 # realtek 8188eu

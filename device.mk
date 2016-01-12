@@ -138,6 +138,24 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
 	hardware/samsung_slsi/slsiap/prebuilt/avn_monitor/nx_avn_monitor:system/bin/nx_avn_monitor
 
+
+# iOS iAP/Tethering
+BOARD_USES_IOS_IAP_TETHERING := true
+ifeq ($(BOARD_USES_IOS_IAP_TETHERING),true)
+PRODUCT_PACKAGES += \
+	libiconv				\
+	libxml2_ios			\
+	libusb_ios				\
+	libplist				\
+	libusbmuxd 			\
+	libimobiledevice		\
+	usbmuxdd
+
+PRODUCT_COPY_FILES += \
+	hardware/samsung_slsi/slsiap/ios_tether/ipod_dev_mgr_bin/ipod_dev_mgr_server:system/bin/ipod_dev_mgr_server    \
+	hardware/samsung_slsi/slsiap/ios_tether/ipod_dev_mgr_bin/ipod_dev_mgr_client:system/bin/ipod_dev_mgr_client
+endif
+
 # ffmpeg libraries
 EN_FFMPEG_EXTRACTOR := false
 EN_FFMPEG_AUDIO_DEC := false
