@@ -87,18 +87,24 @@ PRODUCT_COPY_FILES += \
 ################################################################################
 # audio
 ################################################################################
+# Dual Audio
+EN_DUAL_AUDIO := true
+EN_DUAL_AUDIO_PATH_SPDIF := true
+ifeq ($(EN_DUAL_AUDIO),true)
+PRODUCT_COPY_FILES += \
+	hardware/samsung_slsi/slsiap/prebuilt/libnxdualaudio/lib/libnxdualaudio.so:system/lib/libnxdualaudio.so
+endif
+
 # mixer paths
 PRODUCT_COPY_FILES += \
 	device/nexell/s5p4418_avn_ref/audio/tiny_hw.s5p4418_avn_ref.xml:system/etc/tiny_hw.s5p4418_avn_ref.xml
 # audio policy configuration
+ifeq ($(EN_DUAL_AUDIO_PATH_SPDIF),true)
+PRODUCT_COPY_FILES += \
+	device/nexell/s5p4418_avn_ref/audio/audio_policy_disable_spdif.conf:system/etc/audio_policy.conf
+else
 PRODUCT_COPY_FILES += \
 	device/nexell/s5p4418_avn_ref/audio/audio_policy.conf:system/etc/audio_policy.conf
-
-# Dual Audio
-EN_DUAL_AUDIO := true
-ifeq ($(EN_DUAL_AUDIO),true)
-PRODUCT_COPY_FILES += \
-	hardware/samsung_slsi/slsiap/prebuilt/libnxdualaudio/lib/libnxdualaudio.so:system/lib/libnxdualaudio.so
 endif
 
 ################################################################################
