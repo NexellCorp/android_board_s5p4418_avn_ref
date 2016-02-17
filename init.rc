@@ -341,11 +341,14 @@ on post-fs-data
     chmod 0777 /var/lib
 
 on boot
-	# Set default media player to awesome player
+	# Set default media player to ccsome player
 	setprop media.stagefright.use-awesome 1
 
 	# Set default video player mode
 	setprop persist.sys.media.player-mode window
+
+	# Set default video player to nexell player
+	setprop persist.sys.media.use-nexell true
 
     # basic network init
     ifup lo
