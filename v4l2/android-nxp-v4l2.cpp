@@ -14,8 +14,8 @@ bool android_nxp_v4l2_init()
 
         s.useClipper0   = true;
         s.useDecimator0 = true;
-        s.useClipper1   = true;
-        s.useDecimator1 = true;
+        s.useClipper1   = false;
+        s.useDecimator1 = false;
         s.useMlc0Video  = true;
         s.useMlc1Video  = true;
         s.useMlc1Rgb    = true;
