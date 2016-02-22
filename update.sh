@@ -93,6 +93,7 @@ function parse_args()
                     2ndboot ) UPDATE_ALL=false; UPDATE_2NDBOOT=true ;;
                     u-boot  ) UPDATE_ALL=false; UPDATE_UBOOT=true ;;
                     kernel  ) UPDATE_ALL=false; UPDATE_KERNEL=true ;;
+					nxupdate) BUILD_ALL=false; BUILD_NXUPDATE=true ;;
                     rootfs  ) UPDATE_ALL=false; UPDATE_ROOTFS=true ;;
                     root    ) UPDATE_ALL=false; UPDATE_ROOT=true ;;
                     bmp     ) UPDATE_ALL=false; UPDATE_BMP=true ;;
@@ -497,6 +498,10 @@ function update_kernel()
         if [ ${UPDATE_KERNEL} == "true" ]; then
             cp ${TOP}/kernel/arch/arm/boot/Image ${RESULT_DIR}/boot
             cp ${TOP}/kernel/arch/arm/boot/uImage ${RESULT_DIR}/boot
+		    if [ ${BUILD_NXUPDATE} == "true" ]; then
+		    cp ${TOP}/kernel/arch/arm/boot/uImage_update ${RESULT_DIR}/boot
+    		cp ${TOP}/device/nexell/${BOARD_NAME}/ramdisk_update.gz ${RESULT_DIR}/boot
+		    fi
             make_ext4 ${BOARD_NAME} boot
         fi
 
