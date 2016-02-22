@@ -106,6 +106,9 @@ on boot
 
 # avn uevent monitor
     start monitor
+
+# rearcam service
+    start rearcamservice
     
 on fs
     mount_all /fstab.s5p4418_avn_ref
@@ -234,6 +237,9 @@ service mon_snd /mon_snd.sh
 #    oneshot
 
 service monitor /system/bin/nx_avn_monitor
+    oneshot
+
+service rearcamservice /system/bin/NxRearCamService -t vip -s 0 -c 0 -r 1280,720
     oneshot
 
 service reporthwc /system/bin/report_hwc_scenario
