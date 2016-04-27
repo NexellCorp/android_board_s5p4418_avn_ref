@@ -50,6 +50,7 @@ BOARD_USES_ALSA_AUDIO 	 := false
 
 # Dual Audio
 EN_DUAL_AUDIO := true
+EN_DUAL_AUDIO_PATH_SPDIF := true
 
 BOARD_HAVE_BLUETOOTH := false
 
@@ -60,8 +61,13 @@ BOARD_HAS_CAMERA := true
 BOARD_HAS_SENSOR := false
 BOARD_SENSOR_TYPE := general
 
-EN_FFMPEG_EXTRACTOR := false
-EN_FFMPEG_AUDIO_DEC := false
+EN_FFMPEG_EXTRACTOR := true
+EN_FFMPEG_AUDIO_DEC := true
+
+
+# iOS iAP/Tethering
+BOARD_USES_IOS_IAP_TETHERING := true
+
 
 # wifi
 # broadcom bcm4329

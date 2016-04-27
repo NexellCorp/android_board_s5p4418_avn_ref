@@ -8,7 +8,21 @@
 #include <nxp-v4l2.h>
 #include <nx_camera_board.h>
 
+#define DECODER_TW9900      0
+#define AHD_NVP6114A        1
+#define SERDES_DS90UB914Q   2
+
+#define BACK_CAMERA AHD_NVP6114A
+
+#if (BACK_CAMERA == DECODER_TW9900)
 #include <TW9900.h>
+#elif (BACK_CAMERA == AHD_NVP6114A)
+#include <NVP6114A.h>
+#elif (BACK_CAMERA == SERDES_DS90UB914Q)
+#include <DS90UB914Q.h>
+#endif
+
+//#include <TW9992.h>
 
 namespace android {
 
@@ -26,28 +40,32 @@ NXCameraBoardSensor *get_board_camera_sensor(int id) {
 
     if (id == 0) {
         if (!backSensor) {
+#if (BACK_CAMERA == DECODER_TW9900)				
             backSensor = new TW9900(nxp_v4l2_sensor0);
+#elif (BACK_CAMERA == AHD_NVP6114A)
+            backSensor = new NVP6114A(nxp_v4l2_sensor0);
+#elif (BACK_CAMERA == SERDES_DS90UB914Q)
+            backSensor = new DS90UB914Q(nxp_v4l2_sensor0);
+#endif
             if (!backSensor)
                 ALOGE("%s: cannot create BACK Sensor", __func__);
         }
         sensor = backSensor;
-    }
-
-    else if (id == 1) {
+    } else if (id == 1) {
 #if 0
         if (!frontSensor) {
-            frontSensor = new SP0838(nxp_v4l2_sensor1);
+            frontSensor = new TW9992(nxp_v4l2_sensor1);
             if (!frontSensor)
                 ALOGE("%s: cannot create FRONT Sensor", __func__);
         }
         sensor = frontSensor;
 #endif
-
     }
 
     else {
         ALOGE("INVALID ID: %d", id);
     };
+
     return sensor;
 }
 
