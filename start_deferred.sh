@@ -10,9 +10,14 @@ echo 1 > /sys/devices/platform/backward_camera/stop&
 # printk log level
 echo 7 > /proc/sys/kernel/printk
 
-# sdmmc
-#echo 0 > /sys/devices/platform/mmc_switch/enable 
+chmod 777 /dev/input/*
 
-#setprop sys.usb.config adb
+chmod 777 /data/misc/dhcp
+chmod 777 /data/misc/dhcp/*
 
-#chmod 777 /dev/input/*
+sleep 0.5
+setprop sys.usb.config none 
+sleep 0.5
+stop adbd
+sleep 0.5
+setprop sys.usb.config adb
