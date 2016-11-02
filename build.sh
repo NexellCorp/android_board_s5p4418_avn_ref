@@ -73,6 +73,7 @@ function parse_args()
             -c ) CLEAN_BUILD=true; shift 1 ;;
             -w ) WIFI_DEVICE_NAME=$2; shift 2 ;;
             -t ) case "$2" in
+                    2ndboot ) BUILD_ALL=false; BUILD_2NDBOOT=true ;;
                     u-boot  ) BUILD_ALL=false; BUILD_UBOOT=true ;;
                     kernel  ) BUILD_ALL=false; BUILD_KERNEL=true ;;
                     nxupdate) BUILD_ALL=false; BUILD_NXUPDATE=true ;;
@@ -798,6 +799,7 @@ function make_boot()
     copy_bmp_files_to_boot ${BOARD_NAME}
 
     cp -a ${out_dir}/root ${RESULT_DIR}
+	cp ${TOP}/device/nexell/${BOARD_NAME}/init.rc ${RESULT_DIR}/root
     ${TOP}/device/nexell/tools/mkinitramfs.sh ${RESULT_DIR}/root ${RESULT_DIR}
     cp ${RESULT_DIR}/root.img.gz ${RESULT_DIR}/boot
     cp ${RESULT_DIR}/root.img.gz ${TOP}/out/target/product/${BOARD_NAME}/ramdisk.img
@@ -810,22 +812,6 @@ function make_boot()
     vmsg "end make_boot"
 }
 
-function make_root()
-{
-        cp ${TOP}/device/nexell/${BOARD_NAME}/init.rc ${RESULT_DIR}/root
-
-        pushd $(pwd)
-        cd ${RESULT_DIR}/root
-        chmod 644 *.prop
-        chmod 644 *.${BOARD_NAME}
-        chmod 644 *.rc
-        popd
-
-        local root_size=$(get_partition_size ${BOARD_NAME} root)
-
-        ${TOP}/out/host/linux-x86/bin/make_ext4fs -s -l ${root_size} ${RESULT_DIR}/root.img ${RESULT_DIR}/root
-	
-}
 
 function make_system()
 {
@@ -836,7 +822,6 @@ function make_system()
     #apply_android_overlay
     remove_android_banned_files
 
-    #cp ${out_dir}/system.img ${RESULT_DIR}
     make_ext4 ${BOARD_NAME} system
 		
     vmsg "end make_system"
@@ -846,8 +831,8 @@ function make_cache()
 {
     vmsg "start make_cache"
     local out_dir="${TOP}/out/target/product/${BOARD_NAME}"
-    cp -a ${out_dir}/cache ${RESULT_DIR}
-	cp ${out_dir}/cache.img ${RESULT_DIR}
+	cp -a ${out_dir}/cache ${RESULT_DIR}
+	make_ext4 ${BOARD_NAME} cache
 
     vmsg "end make_cache"
 }
@@ -857,7 +842,7 @@ function make_userdata()
     vmsg "start make_userdata"
     local out_dir="${TOP}/out/target/product/${BOARD_NAME}"
     cp -a ${out_dir}/data ${RESULT_DIR}/userdata
-	cp ${out_dir}/userdata.img ${RESULT_DIR}
+	make_ext4 ${BOARD_NAME} userdata
 
     vmsg "end make_userdata"
 }
@@ -886,7 +871,9 @@ function post_process()
 		make_2ndboot
         make_boot
         make_system
-		make_root
+		make_cache
+		make_userdata
+
 
         echo "---------- End of post processing"
     fi
@@ -902,7 +889,6 @@ export ANDROID_VERSION_MAJOR=$(get_android_version_major)
 mkdir -p ${RESULT_DIR}
 set_android_toolchain_and_check
 CHIP_NAME=$(get_cpu_variant2 ${BOARD_NAME})
-#BOARD_PURE_NAME=${BOARD_NAME%_*}
 BOARD_PURE_NAME=${BOARD_NAME#*_}
 check_board_name ${BOARD_NAME}
 check_wifi_device ${WIFI_DEVICE_NAME}
